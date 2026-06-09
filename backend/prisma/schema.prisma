@@ -1,0 +1,75 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id          String   @id @default(cuid())
+  githubId    String   @unique
+  username    String
+  email       String?  @unique
+  avatarUrl   String?
+  accessToken String?
+
+  repositories Repository[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Repository {
+  id             String @id @default(cuid())
+
+  githubRepoId   String @unique
+
+  name           String
+  owner          String
+  repoUrl        String
+
+  description    String?
+  language       String?
+
+  stars          Int @default(0)
+  forks          Int @default(0)
+
+  userId         String
+  user           User @relation(fields: [userId], references: [id])
+
+  metrics        RepositoryMetrics?
+  activities     Activity[]
+
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+}
+
+model Activity {
+  id          String @id @default(cuid())
+
+  type        String
+  message     String
+
+  repositoryId String
+  repository   Repository @relation(fields: [repositoryId], references: [id])
+
+  createdAt DateTime @default(now())
+}
+
+model RepositoryMetrics {
+  id                String @id @default(cuid())
+
+  commitsCount      Int @default(0)
+  openPrCount       Int @default(0)
+  closedPrCount     Int @default(0)
+  contributorsCount Int @default(0)
+
+  healthScore       Float @default(0)
+
+  repositoryId      String @unique
+  repository        Repository @relation(fields: [repositoryId], references: [id])
+
+  updatedAt DateTime @updatedAt
+}
