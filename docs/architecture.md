@@ -3,7 +3,7 @@ DevPulse Architecture
 Frontend:
 - Next.js
 - TypeScript
-- TailwindCSS
+- TailwindCSS 
 
 Backend:
 - NestJS
