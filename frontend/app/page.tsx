@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 
 interface DashboardStats {
-  totalRepos: number;
+  totalRepos: number; 
   totalStars: number;
   totalForks: number;
   topLanguage: string;
