@@ -39,7 +39,7 @@ export default function DashboardPage() {
     );
 
     setStats(dashboardRes.data);
-    setRepositories(reposRes.data);
+    setRepositories(reposRes.data); 
   };
 
   if (!stats) {
