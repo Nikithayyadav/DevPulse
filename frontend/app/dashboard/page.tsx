@@ -6,7 +6,7 @@ import axios from "axios";
 interface DashboardStats {
   totalRepos: number;
   totalStars: number;
-  totalForks: number;
+  totalForks: number; 
   topLanguage: string;
 }
 
